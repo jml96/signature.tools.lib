@@ -246,7 +246,8 @@ genomePlot <- function(subsVcf.file, indelsVcf.file, cnvsTab.file, rearrBedpe.fi
   
   # substitutions
   #subs.data <- getMutTables(subsVcf.file, onlyPASSED=FALSE, genome.v=genome.v, genomeSeq=genome.bsgenome,mut.order=mut.order)
-  subs.data <- getMutTablesTab(subsTab.file, onlyPASSED=FALSE, genomeSeq=get(genome.bsgenome))
+  subs.file<-read.table(subsVcf.file,sep="\t",header=TRUE,check.names=FALSE,stringsAsFactors=FALSE)
+  subs.data<-tabToSNVcatalogue(subs.file,genome.v=genome.v)
 
   subs <- data.frame(chr=subs.data$muts$chroms,
                      position = subs.data$muts$starts,
