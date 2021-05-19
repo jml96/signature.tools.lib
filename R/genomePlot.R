@@ -189,10 +189,8 @@ genomePlot <- function(subsVcf.file, indelsVcf.file, cnvsTab.file, rearrBedpe.fi
   dels.formatted <- data.frame()
   ins.formatted <- data.frame()
 
-  #res <- vcfToIndelsClassification(indelsVcf.file, sampleID, genome.v)
-  indel_tab<-read.table(indelsVcf.file,sep="\t",header=TRUE,check.names=FALSE,stringsAsFactors=FALSE)
-  res <- tabToIndelsClassification(indel_tab,sampleID,genome.v)
-  
+  res <- vcfToIndelsClassification(indelsVcf.file, sampleID, genome.v)
+
   if (!no_indels && !is.null(res)) {
       indels <- res$indels_classified
       ins <- indels[which(indels$indel.type=='I'),]
@@ -245,9 +243,8 @@ genomePlot <- function(subsVcf.file, indelsVcf.file, cnvsTab.file, rearrBedpe.fi
                  "G[T>G]A","G[T>G]C","G[T>G]G","G[T>G]T","T[T>G]A","T[T>G]C","T[T>G]G","T[T>G]T")
   
   # substitutions
-  #subs.data <- getMutTables(subsVcf.file, onlyPASSED=FALSE, genome.v=genome.v, genomeSeq=genome.bsgenome,mut.order=mut.order)
-  subs.file<-read.table(subsVcf.file,sep="\t",header=TRUE,check.names=FALSE,stringsAsFactors=FALSE)
-  subs.data<-tabToSNVcatalogue(subs.file,genome.v=genome.v)
+  subs.data <- getMutTables(subsVcf.file, onlyPASSED=FALSE, genome.v=genome.v, genomeSeq=genome.bsgenome,mut.order=mut.order)
+  #subs.data <- getMutTablesTab(subsTab.file, onlyPASSED=FALSE, genomeSeq=get(genome.bsgenome))
 
   subs <- data.frame(chr=subs.data$muts$chroms,
                      position = subs.data$muts$starts,
@@ -476,4 +473,3 @@ genomePlot <- function(subsVcf.file, indelsVcf.file, cnvsTab.file, rearrBedpe.fi
 
   return(fn)
 }
-
