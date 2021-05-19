@@ -189,7 +189,10 @@ genomePlot <- function(subsVcf.file, indelsVcf.file, cnvsTab.file, rearrBedpe.fi
   dels.formatted <- data.frame()
   ins.formatted <- data.frame()
 
-  res <- vcfToIndelsClassification(indelsVcf.file, sampleID, genome.v)
+  
+  indel_tab<-read.table(indelsVcf.file,sep="\t",header=TRUE,check.names=FALSE,stringsAsFactors=FALSE)
+  res <- tabToIndelsClassification(indel_tab,sampleID,genome.v)  
+  #res <- vcfToIndelsClassification(indelsVcf.file, sampleID, genome.v)
 
   if (!no_indels && !is.null(res)) {
       indels <- res$indels_classified
